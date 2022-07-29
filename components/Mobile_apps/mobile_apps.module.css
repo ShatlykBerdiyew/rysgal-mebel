@@ -1,0 +1,62 @@
+/* @import url("https://fonts.googleapis.com/css2?family=Inter:wght@200;400;500;600;700&display=swap"); */
+.mobile_apps {
+  display: flex;
+  width: 100vw;
+  max-width: 1500px;
+  margin: 0 auto;
+  height: 600px;
+  /* margin-top: 4rem; */
+  /* background-color: bisque; */
+  margin-bottom: 4rem;
+  /* padding-bottom: 3rem; */
+  box-shadow: 0px 10px 50px 10px rgba(0, 0, 0, 0.25);
+}
+
+.left_sec {
+  padding-top: 1rem;
+  padding-left: 100px;
+  padding-right: 20px;
+  width: 50%;
+  height: 100%;
+  /* background-color: blue; */
+}
+
+.left_sec > h2 {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 36px;
+  color: #000000;
+}
+
+.left_sec > p {
+  padding-top: 0;
+  margin-top: 0;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 60px;
+  /* line-height: 147.02%; */
+  /* or 88px */
+
+  /* accent */
+
+  color: #006d26;
+}
+
+.right_sec {
+  width: 50%;
+  height: 100%;
+  /* background-color: blueviolet; */
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.logo_section {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+  align-items: center;
+}

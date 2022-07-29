@@ -1,0 +1,35 @@
+.aksiya_section {
+  width: 100vw;
+  background-image: url("../../public/yaprak2.png");
+  background-repeat: no-repeat;
+  object-fit: contain;
+  background-position-y: -250px;
+}
+
+.container {
+  max-width: 1500px;
+  margin: 0 auto;
+}
+
+.aksiya_cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.load_more {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
+.load_more > span {
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 5px;
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 40px;
+  line-height: 49px;
+}
