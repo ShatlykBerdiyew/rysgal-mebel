@@ -1,0 +1,12 @@
+.cart {
+  width: 100%;
+}
+
+.cart_container {
+  width: calc(100% - 200px);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7rem;
+  /* justify-content: center; */
+  margin: 3rem 6rem;
+}

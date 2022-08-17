@@ -88,6 +88,7 @@
   /* padding: 0 10px; */
   border-radius: 100%;
   color: aliceblue;
+  cursor: pointer;
 }
 
 .card_btn_title {
@@ -100,6 +101,7 @@
   text-transform: uppercase;
   font-weight: 500;
   background-color: rgb(228, 195, 8);
+  cursor: pointer;
 }
 
 .slide_elements {
@@ -112,6 +114,9 @@
 .slide_item {
   flex: 1;
   border: 1px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   max-width: 150px;
   border-radius: 5px;
 }
@@ -239,6 +244,11 @@
   cursor: pointer;
 }
 
+.active-span {
+  color: black;
+  border-bottom: 2px solid black;
+}
+
 .selected {
   border-bottom: 2px solid rgb(228, 195, 8);
 }
@@ -251,8 +261,3 @@
   display: flex;
   align-items: start;
 }
-
-/* .comment_section {
-  display: flex;
-  flex: 3;
-} */

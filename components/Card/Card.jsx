@@ -4,9 +4,13 @@ import styles from "./card.module.css";
 
 import Mebel1 from "../../public/mebel_1.png";
 import { BASE_URL } from "../../store/urls";
+import Link from "next/link";
+import { useDispatch } from "react-redux";
+import { addCard } from "../../store/actions/card";
 
-const Card = ({ img_url, title, price, desc }) => {
-  console.log("image url: ", img_url);
+const Card = ({ prod_id, img_url, title, price, desc }) => {
+  const dispatch = useDispatch();
+
   return (
     <div className={styles.card}>
       <Image
@@ -16,13 +20,18 @@ const Card = ({ img_url, title, price, desc }) => {
         height={254}
         alt="mebel1"
       />
+      <span className={styles.product_atributs_new}>Taze</span>
+      <span className={styles.product_atributs_sale}>Aksiya</span>
       <div className={styles.card__border}>
         <div className={styles.card_header}>
-          <span className={styles.card__title}>{title.slice(0, 20)}</span>
+          <Link href={`/${prod_id}`}>
+            <a>
+              <span className={styles.card__title}>{title.slice(0, 20)}</span>
+            </a>
+          </Link>
           <span className={styles.card__price}>{price}</span>
         </div>
         <p>{desc.slice(0, 37)}...</p>
-
         {/* <div className={styles.colors}>
           <div className={styles.red}></div>
           <div className={styles.green}></div>
@@ -30,7 +39,13 @@ const Card = ({ img_url, title, price, desc }) => {
         </div> */}
 
         <div className={styles.card__btn}>
-          <span>в корзину</span>
+          <span
+            onClick={() =>
+              dispatch(addCard({ prod_id, img_url, title, price, desc }))
+            }
+          >
+            в корзину
+          </span>
         </div>
       </div>
     </div>

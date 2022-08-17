@@ -14,7 +14,7 @@
 .category_list {
   z-index: 999;
   margin-top: 64px;
-  /* width: 518px; */
+  width: 518px;
   width: max-content;
   background: linear-gradient(
     43.53deg,
@@ -30,6 +30,7 @@
 .caterory_title {
   list-style: none;
   /* max-width: 500px; */
+  padding-left: 1rem;
 }
 .caterory_title > li {
   display: flex;
@@ -57,4 +58,5 @@
 }
 
 .category_banner {
+  transform: translateX(100px) translateY(100px);
 }

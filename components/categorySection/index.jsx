@@ -17,13 +17,13 @@ import Category_banner from "../../public/category_banner.png";
 import { useSelector } from "react-redux";
 import { BASE_URL } from "../../store/urls";
 import { useState } from "react";
+import Link from "next/link";
 
 const CategorySection = () => {
   const [selectedCat, setSelectedcat] = useState(null);
 
   const categoryList = useSelector((state) => state.category);
   const categorise = categoryList.data ? categoryList.data : [];
-  console.log("categories: ", categorise);
   return (
     <div className={styles.category_section}>
       <div className={styles.container}>
@@ -36,9 +36,14 @@ const CategorySection = () => {
           </div>
           <div
             className={styles.category_list}
-            // onMouseOut={() => setSelectedcat(null)}
+            // onMouseOver={() => {
+            //   if (selectedCat !== null) setSelectedcat(null);
+            // }}
           >
-            <ul className={styles.caterory_title}>
+            <ul
+              className={styles.caterory_title}
+              // onMouseOut={() => setSelectedcat(null)}
+            >
               {categorise.length > 0
                 ? categorise.map((item) => (
                     <li
@@ -63,13 +68,17 @@ const CategorySection = () => {
               {selectedCat && (
                 <ul>
                   {selectedCat.map((item) => (
-                    <li
-                      key={item.id}
-                      style={{ fontSize: "26px", backgroundColor: "red" }}
-                      onMouseOut={() => setSelectedcat(null)}
-                    >
-                      {item.title_tm}
-                    </li>
+                    <Link href={`/category/${item.id}`}>
+                      <a>
+                        <li
+                          key={item.id}
+                          style={{ fontSize: "26px", backgroundColor: "red" }}
+                          onMouseOut={() => setSelectedcat(null)}
+                        >
+                          {item.title_tm}
+                        </li>
+                      </a>
+                    </Link>
                   ))}
                 </ul>
               )}

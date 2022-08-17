@@ -5,8 +5,6 @@ import styles from "./aksiya.module.css";
 
 const AksiyaSection = () => {
   const { results } = useSelector((state) => state.products);
-  [].length;
-  console.log("Products: []", results);
   return (
     <div className={styles.aksiya_section}>
       <div className={styles.container}>
@@ -14,9 +12,10 @@ const AksiyaSection = () => {
         <div className={styles.aksiya_cards}>
           {results.length > 0
             ? results.map((item) => {
-                console.log(item.main_image);
                 return (
                   <Card
+                    key={item.id}
+                    prod_id={item.id}
                     img_url={item.main_image}
                     title={item.title_tm}
                     price={item.get_price}

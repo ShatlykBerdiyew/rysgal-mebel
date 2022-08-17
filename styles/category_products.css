@@ -1,0 +1,93 @@
+.category_products {
+  width: 100%;
+}
+
+.category_products__container {
+  margin: 3rem 6rem;
+}
+
+.category__header {
+  display: flex;
+}
+
+.category__title {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  /* background-color: red; */
+  padding: 0.5rem 0;
+  font-size: 2rem;
+  font-weight: 500;
+}
+
+.category__products_count {
+  /* display: "flex",
+    aic
+    aling-items: "end",
+    fontSize: "1.1rem",
+    fontWeight: 600,
+    borderBottom: "1px solid black", */
+  display: flex;
+  align-items: end;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-bottom: 1px solid black;
+}
+
+.category_products_main {
+  padding-top: 2rem;
+  display: flex;
+  width: 100%;
+}
+
+.category__products_filter {
+  display: flex;
+  flex-direction: column;
+  height: max-content;
+  position: fixed;
+  /* float: left; */
+  width: 400px;
+  padding: 1rem 1rem;
+  box-shadow: 0px 10px 50px 10px rgba(0, 0, 0, 0.25);
+}
+
+.category__produsts_view {
+  width: calc(100% - 400px);
+  display: flex;
+  transform: translateX(400px);
+  float: right;
+  position: relative;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 6rem;
+  padding-left: 0.5rem;
+}
+
+.brand_label {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+input[type="checkbox"] {
+  display: none;
+}
+
+label {
+  padding-left: 20px;
+}
+
+label::before {
+  content: "";
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 1px solid #111;
+  vertical-align: middle;
+  margin-left: -10px;
+  margin-right: 15px;
+}
+
+input[type="checkbox"]:checked + label::before {
+  background-image: url("../public/check-mark.png");
+  background-size: 100%;
+}

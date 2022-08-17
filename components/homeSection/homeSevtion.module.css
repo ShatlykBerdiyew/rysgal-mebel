@@ -1,9 +1,11 @@
 .home_section {
   width: 100vw;
-  background-image: url("../../public//yaprak.png");
-  /* background-position: right; */
+  background-image: url("../../public/yaprak.png");
+  background-position: right;
   background-repeat: no-repeat;
-  background-position-x: 1170px;
+  /* background-size: cover; */
+  /* background-position: 100px; */
+  /* background-position-x: 1170px; */
   object-fit: contain;
 }
 
@@ -79,8 +81,8 @@
 }
 
 .ellipse {
-    position: absolute;
-    display: flex;
+  position: absolute;
+  display: flex;
   width: 653px;
   height: 653px;
   border-radius: 100%;
@@ -89,9 +91,9 @@
   backdrop-filter: blur(30px);
 }
 
-.home_section__image{
-    position: relative;
-    transform: translateX(25px);
-    /* overflow: visible; */
-    z-index: 999;
+.home_section__image {
+  position: relative;
+  transform: translateX(25px);
+  /* overflow: visible; */
+  z-index: 999;
 }

@@ -1,10 +1,14 @@
 .button {
-    height: 53px;
-    background-color: #FFEF00;
-    border: none;
-    outline: none;
-    padding: 0 50px;
-    font-size: 30px;
-    border-radius: 5px;
-    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  height: 53px;
+  background-color: #ffef00;
+  border: none;
+  outline: none;
+  padding: 0 50px;
+  font-size: 30px;
+  border-radius: 5px;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+.button:hover {
+  cursor: pointer;
 }
