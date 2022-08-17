@@ -5,8 +5,39 @@
 .cart_container {
   width: calc(100% - 200px);
   display: flex;
-  flex-wrap: wrap;
-  gap: 7rem;
+  flex-direction: column;
   /* justify-content: center; */
   margin: 3rem 6rem;
+}
+
+.cart__products_view {
+  margin-top: 2rem;
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  gap: 7rem;
+}
+
+.cart__order_section {
+  padding: 1rem;
+  width: 500px;
+  box-shadow: 0px 10px 50px 10px rgba(0, 0, 0, 0.25);
+}
+
+.cart__order_section > span {
+  font-size: 1.5rem;
+  font-family: sans-serif;
+  font-weight: 700;
+  font-style: italic;
+}
+
+.cart__order_section > p {
+  width: 100%;
+  margin-top: 1rem;
+  text-align: center;
+  background-color: rgb(235, 222, 39);
+  font-size: 1.5rem;
+  font-family: sans-serif;
+  font-weight: 700;
+  padding: 1rem 0;
 }

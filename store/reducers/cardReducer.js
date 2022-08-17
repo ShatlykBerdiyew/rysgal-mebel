@@ -7,7 +7,7 @@ export const cardReducer = (state = init, action) => {
     case ADD_TO_CARD:
       return [...state, action.payload];
     case DELETE_IN_CARD:
-      return state.filter((item) => item.id !== action.payload);
+      return state.filter((item) => item.prod_id !== action.payload);
     default:
       return state;
   }

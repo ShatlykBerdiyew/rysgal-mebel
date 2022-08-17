@@ -7,3 +7,5 @@ export const GET_BRANDS_LIST = "GET_BRANDS_LIST";
 
 export const ADD_TO_CARD = "ADD_TO_CARD";
 export const DELETE_IN_CARD = "DELETE_IN_CARD";
+
+export const SET_SEARCH_TITLE = "SET_SEARCH_TITLE";

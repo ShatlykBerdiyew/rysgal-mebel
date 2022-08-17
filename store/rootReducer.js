@@ -4,6 +4,7 @@ import { brandReducer } from "./reducers/brandReducer";
 import { cardReducer } from "./reducers/cardReducer";
 import { categoryReducer } from "./reducers/categoryReducer";
 import { productsReducer } from "./reducers/productsReducer";
+import { searchReducer } from "./reducers/searchReaducer";
 
 const rootReducer = combineReducers({
   auth: authReducer,
@@ -11,6 +12,7 @@ const rootReducer = combineReducers({
   products: productsReducer,
   brands: brandReducer,
   card: cardReducer,
+  search: searchReducer,
 });
 
 export default rootReducer;

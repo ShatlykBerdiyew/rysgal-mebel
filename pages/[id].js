@@ -24,6 +24,7 @@ import Footer from "../components/footer";
 import { BASE_URL } from "../store/urls";
 import Header from "../components/header";
 import Link from "next/link";
+import { addCard } from "../store/actions/card";
 
 export const getServerSideProps = async (contex) => {
   const { id } = contex.params;
@@ -177,13 +178,6 @@ const ProductsDetail = ({ prod_detail }) => {
               <span className="sale_price">550 tmt</span>
               <span className="sale_prosent">-10%</span>
             </div>
-            {/* <div className={styles.boshluk_1}></div> */}
-            {/* <div className={styles.detail_desc}>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore in
-              veritatis hic explicabo voluptatem quos adipisci blanditiis
-              commodi culpa? Dolore commodi placeat repellat illum doloremque
-              impedit adipisci corrupti ipsam unde?
-            </div> */}
             <div className="boshluk"></div>
             <div className="actions">
               <motion.div
@@ -203,7 +197,20 @@ const ProductsDetail = ({ prod_detail }) => {
                 }}
                 className="card"
               >
-                <div className="card_btn_title">
+                <div
+                  className="card_btn_title"
+                  onClick={() =>
+                    dispatch(
+                      addCard({
+                        prod_id: prod_detail.data.id,
+                        img_url: prod_detail.data.main_image,
+                        title: prod_detail.data.title_tm,
+                        price: prod_detail.data.price,
+                        desc: prod_detail.data.description_tm,
+                      })
+                    )
+                  }
+                >
                   <Image src={card} width={`20px`} height={`25px`} />{" "}
                   <span style={{ paddingLeft: "15px" }}>to Card</span>
                 </div>

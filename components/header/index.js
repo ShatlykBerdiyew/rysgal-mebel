@@ -63,30 +63,6 @@ export default function Header() {
                 />
                 <span>Профиль</span>
               </li>
-              <li>
-                <Image
-                  className={style.icons}
-                  width={48}
-                  height={48}
-                  src={Imo}
-                />
-              </li>
-              <li>
-                <Image
-                  className={style.icons}
-                  width={48}
-                  height={48}
-                  src={Instogram}
-                />
-              </li>
-              <li>
-                <Image
-                  className={style.icons}
-                  width={48}
-                  height={48}
-                  src={Facebook}
-                />
-              </li>
             </ul>
           </div>
         </div>
@@ -104,6 +80,27 @@ export default function Header() {
             height={48}
             style={{ cursor: "pointer" }}
           />
+          <ul className={style.navbar}>
+            <li>
+              <Image className={style.icons} width={48} height={48} src={Imo} />
+            </li>
+            <li>
+              <Image
+                className={style.icons}
+                width={48}
+                height={48}
+                src={Instogram}
+              />
+            </li>
+            <li>
+              <Image
+                className={style.icons}
+                width={48}
+                height={48}
+                src={Facebook}
+              />
+            </li>
+          </ul>
           <Link href={`/cart`}>
             <a className={style.cart}>
               <Image src={Cart} width={43} height={45} />+{card.length}

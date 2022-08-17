@@ -6,9 +6,9 @@ import Mebel1 from "../../public/mebel_1.png";
 import { BASE_URL } from "../../store/urls";
 import Link from "next/link";
 import { useDispatch } from "react-redux";
-import { addCard } from "../../store/actions/card";
+import { addCard, deleteCard } from "../../store/actions/card";
 
-const Card = ({ prod_id, img_url, title, price, desc }) => {
+const Card = ({ prod_id, img_url, title, price, desc, inCart = false }) => {
   const dispatch = useDispatch();
 
   return (
@@ -40,11 +40,16 @@ const Card = ({ prod_id, img_url, title, price, desc }) => {
 
         <div className={styles.card__btn}>
           <span
-            onClick={() =>
-              dispatch(addCard({ prod_id, img_url, title, price, desc }))
-            }
+            style={inCart ? { background: "red" } : null}
+            onClick={() => {
+              if (inCart) {
+                dispatch(deleteCard(prod_id));
+              } else {
+                dispatch(addCard({ prod_id, img_url, title, price, desc }));
+              }
+            }}
           >
-            в корзину
+            {inCart ? "Удалить" : "в корзину"}
           </span>
         </div>
       </div>
