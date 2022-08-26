@@ -45,7 +45,9 @@ const Card = ({ prod_id, img_url, title, price, desc, inCart = false }) => {
               if (inCart) {
                 dispatch(deleteCard(prod_id));
               } else {
-                dispatch(addCard({ prod_id, img_url, title, price, desc }));
+                dispatch(
+                  addCard({ prod_id, img_url, title, price, desc, qty: 1 })
+                );
               }
             }}
           >

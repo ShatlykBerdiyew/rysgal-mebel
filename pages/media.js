@@ -1,15 +1,42 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import Header from "../components/header";
+import { BASE_URL } from "../store/urls";
+import s from "../styles/media.module.css";
 
 const media = () => {
+  const [loading, setLoading] = useState(false);
+  const [mediaList, setMediaList] = useState([]);
+
+  useEffect(() => {
+    if (mediaList.length === 0) {
+      console.log("media listi almaga bashlady!");
+      setLoading(true);
+      fetch(BASE_URL + "/api/products/media-list/")
+        .then((res) => res.json())
+        .then((json) => setMediaList(json.data.results))
+        .catch((err) => console.log(err))
+        .finally(() => setLoading(false));
+    }
+  }, []);
+
+  console.log("media Listin ozi: ", mediaList);
+
   return (
-    <div className="container">
-      <h2>video title</h2>
-      <h4>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt modi
-        corporis voluptates facere, iste ullam adipisci eos accusamus quibusdam
-        consequatur?
-      </h4>
-      <video src="https://zen.yandex.ru/video/watch/62e61dc1e5bf11613fa533ce?rid=2547752492.95.1660543686791.12760"></video>
+    <div className={s.media}>
+      <Header />
+      <div className={s.container}>
+        <h1>Karhanamyzyn durmushyndan pursatlar</h1>
+        {loading ? (
+          <h2>loading ...</h2>
+        ) : (
+          mediaList?.map((item) => (
+            <div key={item.id} className={s.media__item}>
+              <h2>{item.title_tm}</h2>
+              <video controls={true} src={BASE_URL + item.video} />
+            </div>
+          ))
+        )}
+      </div>
     </div>
   );
 };

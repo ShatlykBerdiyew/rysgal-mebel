@@ -1,0 +1,11 @@
+.search_page {
+  width: 100%;
+}
+
+.search_page__container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6rem;
+
+  margin: 3rem 6rem;
+}

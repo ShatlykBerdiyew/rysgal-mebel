@@ -9,14 +9,33 @@ import Facebook from "../../public/facebook.png";
 import SearchIcon from "../../public/searchion.png";
 import Like from "../../public/like.png";
 import Cart from "../../public/cart.png";
+import CloseIcon from "../../public/close.png";
+
 import style from "./header.module.css";
 import Button1 from "../button";
 import Link from "next/link";
 
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setSearchTitle } from "../../store/actions/search";
+import { useEffect, useState } from "react";
+import { BASE_URL } from "../../store/urls";
 
 export default function Header() {
-  const { card } = useSelector((state) => state);
+  const [magazinModalShow, setMagazinModalShow] = useState(false);
+  const [gifData, setGifData] = useState(null);
+
+  const { card, search, user } = useSelector((state) => state);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (!gifData) {
+      fetch(BASE_URL + "/api/products/gif-banner/")
+        .then((res) => res.json())
+        .then((json) => setGifData(json.data.image))
+        .catch((err) => console.log(err));
+    }
+  }, []);
+
   return (
     <header className={style.header}>
       <div className={style.container}>
@@ -27,6 +46,11 @@ export default function Header() {
                 <Image src={Logo} alt="logo" />
               </a>
             </Link>
+          </div>
+          <div className={style.gif_section}>
+            {gifData && (
+              <Image src={BASE_URL + gifData} width={1000} height={80} />
+            )}
           </div>
           <div>
             <ul className={style.navbar}>
@@ -39,9 +63,9 @@ export default function Header() {
                   src={Phone}
                   alt="phone"
                 />
-                <span>Звонить</span>
+                <span>Медия</span>
               </li>
-              <li>
+              <li onClick={() => setMagazinModalShow(true)}>
                 <Image
                   className={style.prof}
                   width={25}
@@ -53,15 +77,19 @@ export default function Header() {
                 <span>Магазины</span>
               </li>
               <li>
-                <Image
-                  className={style.prof}
-                  width={25}
-                  height={25}
-                  objectFit="contain"
-                  src={User}
-                  alt="user"
-                />
-                <span>Профиль</span>
+                <Link href={user.token ? "/profile" : "/login"}>
+                  <a className={style.profile_link}>
+                    <Image
+                      className={style.prof}
+                      width={30}
+                      height={30}
+                      objectFit="contain"
+                      src={User}
+                      alt="user"
+                    />
+                    <span>Профиль</span>
+                  </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -70,10 +98,23 @@ export default function Header() {
           <Button1 setFunction={() => console.log("click")}>
             Все категории
           </Button1>
-          <input className={style.search} type="text" placeholder="Поиск" />
-          <Button1>
-            <Image width={39.71} height={42.37} src={SearchIcon} />
-          </Button1>
+          <div className={style.search_section}>
+            <input
+              className={style.search}
+              type="text"
+              placeholder="Поиск"
+              name="Search"
+              value={search.title}
+              onChange={(e) => dispatch(setSearchTitle(e.target.value))}
+            />
+            <Link href={"/search"}>
+              <a>
+                <Button1>
+                  <Image width={35} height={35} src={SearchIcon} />
+                </Button1>
+              </a>
+            </Link>
+          </div>
           <Image
             src={Like}
             width={50}
@@ -108,6 +149,29 @@ export default function Header() {
           </Link>
         </div>
       </div>
+      {magazinModalShow && (
+        <div className={style.magazin_modal}>
+          <div
+            className={style.magazin_modal__close}
+            onClick={() => setMagazinModalShow(false)}
+          >
+            <Image src={CloseIcon} width={36} height={36} />
+          </div>
+          <div className={style.magazin_modal__container}>
+            <div className={style.karta_modal}>
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d25166.585301938532!2d58.39670772134997!3d37.95791483986182!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sRysgal%20mebel!5e0!3m2!1sru!2s!4v1661403747160!5m2!1sru!2s"
+                width={"100%"}
+                height={"100%"}
+                style={{ border: "0" }}
+                // allowfullscreen="false"
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+              ></iframe>
+            </div>
+          </div>
+        </div>
+      )}
     </header>
   );
 }

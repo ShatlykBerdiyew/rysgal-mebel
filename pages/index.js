@@ -12,6 +12,7 @@ import HomeSection from "../components/homeSection";
 import InfoSection from "../components/InfoSection";
 import MobileApps from "../components/Mobile_apps";
 import NewProducts from "../components/NewProducts";
+import { loginUser } from "../store/actions/user";
 import { asyncGetCategoryList } from "../store/asyncActions/asyncGetCategoryList";
 import { asyncGetProductsList } from "../store/asyncActions/asyncGetProducts";
 import styles from "../styles/Home.module.css";
@@ -20,13 +21,20 @@ export default function Home() {
   const categories = useSelector((state) => state.category);
   const products = useSelector((state) => state.products);
   const dispatch = useDispatch();
+
+  // localStronge - da token barlygyny barlayar we bar bolsa reducere yazyar
+  useEffect(() => {
+    const localtoken = localStorage.getItem("token");
+    if (localtoken !== null && localtoken !== "null") {
+      dispatch(loginUser(localtoken));
+    }
+  }, []);
+
   useEffect(() => {
     if (categories.response === undefined) {
       dispatch(asyncGetCategoryList());
     }
-    // if (products === {}) {
     dispatch(asyncGetProductsList(10, 0));
-    // }
   }, []);
 
   return (

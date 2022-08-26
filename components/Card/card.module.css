@@ -43,6 +43,8 @@
   line-height: 30px;
 
   color: #000000;
+
+  cursor: pointer;
 }
 
 .card__price {
@@ -100,6 +102,8 @@
   border-color: #ed0000;
   align-items: center;
   justify-content: flex-end;
+
+  cursor: pointer;
 }
 
 .card__btn > span {

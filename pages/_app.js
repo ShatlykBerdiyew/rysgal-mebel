@@ -5,6 +5,8 @@ import "../styles/productDetail.css";
 import "../styles/brand_products.css";
 import "../styles/category_products.css";
 import "../styles/cart.css";
+import "../styles/search.css";
+import "../components/Loading/loadingStyle.css";
 import { wrapper, store } from "../store/store";
 import { Provider } from "react-redux";
 
