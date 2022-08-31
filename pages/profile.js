@@ -14,22 +14,23 @@ import { asyncRegisterUser } from "../store/asyncActions/asyncRegisterUser";
 import { asyncUserProfile } from "../store/asyncActions/asyncUserProfile";
 import { BASE_URL } from "../store/urls";
 import Link from "next/link";
-import { logautUser } from "../store/actions/user";
+import { logautUser, updateProfileInfo } from "../store/actions/user";
+import axios from "axios";
 
 export default function Profile() {
   const [orderList, setOrderList] = useState([]);
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [orderDetailItems, setOrderDetailItems] = useState(null);
+  const [profilInfoEdit, setProfilInfoEdit] = useState(false);
+  const [changeImage, setChangeImage] = useState(null);
 
   const token = useSelector((state) => state.user.token);
   const profileData = useSelector((state) => state.user.user_profil);
-
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (
-      token === null ||
-      token === "undefined" ||
+      (token === null || token === "undefined") &&
       !localStorage.getItem("token")
     ) {
       Router.push("/login");
@@ -70,7 +71,41 @@ export default function Profile() {
     }
   };
 
-  console.log("Order details items", orderDetailItems);
+  const handleProfileInfoUpdate = () => {
+    let formData = new FormData();
+    if (changeImage) {
+      formData.append("image", changeImage);
+    }
+    if (profileData.fullname) {
+      formData.append("fullname", profileData.fullname);
+    }
+    if (profileData.region) {
+      formData.append("region", profileData.region);
+    }
+    if (profileData.email) {
+      formData.append("email", profileData.email);
+    }
+    if (profileData.address_line_1) {
+      formData.append("address_line_1", profileData.address_line_1);
+    }
+    if (profileData.address_line_2) {
+      formData.append("address_line_2", profileData.address_line_2);
+    }
+    axios({
+      url: `${BASE_URL}/api/auth/profile-create/`,
+      method: "PUT",
+      headers: {
+        "Content-Type": "multipart/from-data",
+        Authorization: `Bearer ${token}`,
+      },
+      data: formData,
+    }).then((res) => {
+      console.log(res.data);
+    });
+    console.log("Profile info update button click");
+    console.log("user profile: ", profileData);
+    setProfilInfoEdit(false);
+  };
 
   return (
     <div className={styles.profile_page}>
@@ -104,7 +139,21 @@ export default function Profile() {
           {/* Profile suratyny duryan yeri, eger surat yok bolsa shu yerde goshup bolya */}
           <div className={styles.image__section}>
             <div className={styles.prof_image}>
-              <Image src={addImageIcon} objectFit="fill" />
+              {!profilInfoEdit ? (
+                <Image
+                  src={`${BASE_URL}${profileData ? profileData.image : "/"}`}
+                  width={1}
+                  height={1}
+                  objectFit="cover"
+                  layout="responsive"
+                />
+              ) : (
+                <input
+                  type="file"
+                  onChange={(e) => setChangeImage(e.target.files[0])}
+                />
+              )}
+
               <div className={styles.image_title}>
                 {profileData?.fullname ? profileData?.fullname : null}
               </div>
@@ -116,56 +165,121 @@ export default function Profile() {
             <h2>Maglumatlarym</h2>
             <div className={styles.user_info_section__form}>
               <span>Doly adynyz</span>
-              <input
-                className={styles.form_input}
-                type={"text"}
-                value={profileData?.fullname}
-              />
+              {profilInfoEdit ? (
+                <input
+                  name="fullname"
+                  className={styles.form_input}
+                  type={"text"}
+                  onChange={(e) =>
+                    dispatch(updateProfileInfo(e.target.name, e.target.value))
+                  }
+                  value={profileData?.fullname}
+                />
+              ) : (
+                <div className={styles.form_input}>{profileData?.fullname}</div>
+              )}
             </div>
             <div className={styles.user_info_section__form}>
               <span>Telefon belginiz</span>
-              <input
-                className={styles.form_input}
-                type={"text"}
-                value={profileData?.mobile}
-              />
+              {profilInfoEdit ? (
+                <input
+                  disabled
+                  name="mobile"
+                  className={styles.form_input}
+                  type={"text"}
+                  value={profileData?.mobile}
+                />
+              ) : (
+                <div className={styles.form_input}>{profileData?.mobile}</div>
+              )}
             </div>
             <div className={styles.user_info_section__form}>
               <span>Sebit</span>
-              <input
-                className={styles.form_input}
-                type={"text"}
-                value={profileData?.region}
-              />
+              {profilInfoEdit ? (
+                // <input
+                //   className={styles.form_input}
+                //   type={"text"}
+                //   value={profileData?.region}
+                // />
+                <select
+                  name="region"
+                  className={styles.form_input}
+                  value={profileData?.region}
+                  onChange={(e) =>
+                    dispatch(updateProfileInfo(e.target.name, e.target.value))
+                  }
+                >
+                  <option>Asgabat</option>
+                  <option>Ahal</option>
+                  <option>Balkan</option>
+                  <option>Dashoguz</option>
+                  <option>Lebap</option>
+                  <option>Mary</option>
+                </select>
+              ) : (
+                <div className={styles.form_input}>{profileData?.region}</div>
+              )}
             </div>
             <div className={styles.user_info_section__form}>
               <span>E-mail pochtanyz</span>
-              <input
-                className={styles.form_input}
-                type={"text"}
-                value={profileData?.email}
-              />
+              {profilInfoEdit ? (
+                <input
+                  name="email"
+                  className={styles.form_input}
+                  type={"text"}
+                  value={profileData?.email}
+                  onChange={(e) =>
+                    dispatch(updateProfileInfo(e.target.name, e.target.value))
+                  }
+                />
+              ) : (
+                <div className={styles.form_input}>{profileData?.email}</div>
+              )}
             </div>
             <div className={styles.user_info_section__form}>
               <span>Salgy 1</span>
-              <input
-                className={styles.form_input}
-                type={"text"}
-                value={profileData?.address_line_1}
-              />
+              {profilInfoEdit ? (
+                <input
+                  name="address_line_1"
+                  className={styles.form_input}
+                  type={"text"}
+                  value={profileData?.address_line_1}
+                  onChange={(e) =>
+                    dispatch(updateProfileInfo(e.target.name, e.target.value))
+                  }
+                />
+              ) : (
+                <div className={styles.form_input}>
+                  {profileData?.address_line_1}
+                </div>
+              )}
             </div>
             <div className={styles.user_info_section__form}>
               <span>Salgy 2</span>
-              <input
-                className={styles.form_input}
-                type={"text"}
-                value={profileData?.address_line_2}
-              />
+              {profilInfoEdit ? (
+                <input
+                  name="address_line_2"
+                  className={styles.form_input}
+                  type={"text"}
+                  value={profileData?.address_line_2}
+                  onChange={(e) =>
+                    dispatch(updateProfileInfo(e.target.name, e.target.value))
+                  }
+                />
+              ) : (
+                <div className={styles.form_input}>
+                  {profileData?.address_line_2}
+                </div>
+              )}
             </div>
           </div>
         </div>
         <div className={styles.btn_section}>
-          <button>Duzeltmek</button>
+          {profilInfoEdit ? (
+            <button onClick={handleProfileInfoUpdate}>Save</button>
+          ) : (
+            <button onClick={() => setProfilInfoEdit(true)}>Duzeltmek</button>
+          )}
         </div>
         <div className={styles.history}>
           <h2>Onki satyn alynan harytlar</h2>

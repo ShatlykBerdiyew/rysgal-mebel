@@ -23,8 +23,9 @@ import { BASE_URL } from "../../store/urls";
 export default function Header() {
   const [magazinModalShow, setMagazinModalShow] = useState(false);
   const [gifData, setGifData] = useState(null);
+  const [categoryListShow, setCategoryListShow] = useState(false);
 
-  const { card, search, user } = useSelector((state) => state);
+  const { card, search, user, category } = useSelector((state) => state);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -38,7 +39,7 @@ export default function Header() {
 
   return (
     <header className={style.header}>
-      <div className={style.container}>
+      <div className={style.container} onM>
         <div className={style.sec1}>
           <div style={{ cursor: "pointer" }}>
             <Link href="/">
@@ -95,7 +96,7 @@ export default function Header() {
           </div>
         </div>
         <div className={style.sec2}>
-          <Button1 setFunction={() => console.log("click")}>
+          <Button1 setFunction={() => setCategoryListShow(true)}>
             Все категории
           </Button1>
           <div className={style.search_section}>
@@ -148,6 +149,30 @@ export default function Header() {
             </a>
           </Link>
         </div>
+        {categoryListShow && (
+          <div
+            className={style.category__list_show}
+            onMouseLeave={() => setCategoryListShow(false)}
+          >
+            {category.data &&
+              category.data.map((cat) => (
+                <div className={style.cat_item}>
+                  <span>{cat.title_tm}</span>
+                  <div className={style.subcat}>
+                    {cat.subcategories.map((sub) => (
+                      <Link href={`/category/${sub.id}`}>
+                        <a>
+                          <div className={style.subcat_item}>
+                            {sub.title_tm}
+                          </div>
+                        </a>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              ))}
+          </div>
+        )}
       </div>
       {magazinModalShow && (
         <div className={style.magazin_modal}>

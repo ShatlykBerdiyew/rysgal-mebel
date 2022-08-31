@@ -24,3 +24,7 @@ export const SET_LOADING = "SET_LOADING";
 
 export const SET_ERROR = "SET_ERROR";
 export const CLEAR_ERROR = "CLEAR_ERROR";
+
+export const UPDATE_PROFILE_INFO = "UPDATE_PROFILE_INFO";
+
+export const GET_BANNER_LIST = "GET_BANNER_LIST";

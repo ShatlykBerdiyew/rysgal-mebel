@@ -1,4 +1,9 @@
-import { GET_USER_PROFILE, LOGAUT_USER, LOGIN_USER } from "../types";
+import {
+  GET_USER_PROFILE,
+  LOGAUT_USER,
+  LOGIN_USER,
+  UPDATE_PROFILE_INFO,
+} from "../types";
 
 const init = {
   token: null,
@@ -21,6 +26,11 @@ export const userReducer = (state = init, action) => {
       return {
         ...state,
         user_profil: action.payload,
+      };
+    case UPDATE_PROFILE_INFO:
+      return {
+        ...state,
+        user_profil: { ...state.user_profil, [action.name]: action.value },
       };
     default:
       return state;

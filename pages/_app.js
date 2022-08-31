@@ -7,6 +7,7 @@ import "../styles/category_products.css";
 import "../styles/cart.css";
 import "../styles/search.css";
 import "../components/Loading/loadingStyle.css";
+import "antd/dist/antd.css";
 import { wrapper, store } from "../store/store";
 import { Provider } from "react-redux";
 
