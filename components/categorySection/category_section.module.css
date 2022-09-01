@@ -13,6 +13,7 @@
 }
 .right_section {
   width: 80%;
+  height: auto;
 }
 .category_list {
   z-index: 999;

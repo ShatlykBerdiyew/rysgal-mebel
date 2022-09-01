@@ -12,7 +12,9 @@ import HomeSection from "../components/homeSection";
 import InfoSection from "../components/InfoSection";
 import MobileApps from "../components/Mobile_apps";
 import NewProducts from "../components/NewProducts";
+import { addCard } from "../store/actions/card";
 import { loginUser } from "../store/actions/user";
+import { asyncGetBannerList } from "../store/asyncActions/asyncGetBannerList";
 import { asyncGetCategoryList } from "../store/asyncActions/asyncGetCategoryList";
 import { asyncGetProductsList } from "../store/asyncActions/asyncGetProducts";
 import styles from "../styles/Home.module.css";
@@ -20,13 +22,27 @@ import styles from "../styles/Home.module.css";
 export default function Home() {
   const categories = useSelector((state) => state.category);
   const products = useSelector((state) => state.products);
+  const { card, banner } = useSelector((state) => state);
   const dispatch = useDispatch();
 
-  // localStronge - da token barlygyny barlayar we bar bolsa reducere yazyar
+  // localStronge - da token, korzinada haryt barlygyny barlygyny barlayar we bar bolsa reducere yazyar
   useEffect(() => {
     const localtoken = localStorage.getItem("token");
+    const localCart = localStorage.getItem("cart");
     if (localtoken !== null && localtoken !== "null") {
       dispatch(loginUser(localtoken));
+    }
+
+    if (
+      card.length === 0 &&
+      localCart &&
+      localCart !== "null" &&
+      localCart !== "undefined"
+    ) {
+      const localCartJSON = JSON.parse(localCart);
+      localCartJSON.map((cart) => {
+        dispatch(addCard(cart));
+      });
     }
   }, []);
 
@@ -35,6 +51,9 @@ export default function Home() {
       dispatch(asyncGetCategoryList());
     }
     dispatch(asyncGetProductsList(10, 0));
+    if (banner.length === 0) {
+      dispatch(asyncGetBannerList());
+    }
   }, []);
 
   return (

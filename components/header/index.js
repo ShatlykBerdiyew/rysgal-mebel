@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Logo from "../../public/logo1.png";
 import Phone from "../../public/phone.png";
+import playIcon from "../../public/play.png";
 import Location from "../../public/location.png";
 import User from "../../public/user.png";
 import Imo from "../../public/imo.png";
@@ -61,7 +62,7 @@ export default function Header() {
                   width={25}
                   height={25}
                   objectFit="contain"
-                  src={Phone}
+                  src={playIcon}
                   alt="phone"
                 />
                 <span>Медия</span>
