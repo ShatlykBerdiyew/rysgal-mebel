@@ -66,8 +66,7 @@ const Cart = () => {
 
   const handleOrderCreate = () => {
     orderDetail.items = orderItems;
-    console.log("+++++++OrderData: ", orderDetail);
-    console.log("token for create order", user.token);
+
     if (user.token) {
       dispatch(asyncOrderCreate(user.token, orderDetail));
     } else if (localStorage.getItem("token")) {

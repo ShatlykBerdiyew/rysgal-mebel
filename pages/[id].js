@@ -1,11 +1,9 @@
 import React, { useEffect } from "react";
-// import "../styles/productDetail.css";
 
 import Slider from "react-slick";
 
-import surat from "../public/mebel_1.png";
-import surat_1 from "../public/home_section_mebel.png";
 import like from "../public/like.png";
+import redLike from "../public/heart.png";
 import card from "../public/cart.png";
 import icon1 from "../public/11.png";
 import icon2 from "../public/22.png";
@@ -13,11 +11,9 @@ import icon3 from "../public/33.png";
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
 import Card from "../components/Card/Card";
-import { asyncGetProductsList } from "../store/asyncActions/asyncGetProducts";
 
-import brand from "../public/brand-1.png";
 import { useState } from "react";
-import { motion, useAnimationControls } from "framer-motion";
+import { motion } from "framer-motion";
 
 import cn from "classnames";
 import Footer from "../components/footer";
@@ -25,6 +21,7 @@ import { BASE_URL } from "../store/urls";
 import Header from "../components/header";
 import Link from "next/link";
 import { addCard } from "../store/actions/card";
+import { addProductinLikes } from "../store/actions/likedProductsActions";
 
 export const getServerSideProps = async (contex) => {
   const { id } = contex.params;
@@ -39,8 +36,19 @@ export const getServerSideProps = async (contex) => {
 const ProductsDetail = ({ prod_detail }) => {
   const recProds = useSelector((state) => state.products.results);
   const dispatch = useDispatch();
+  console.log("prod_detail: ", prod_detail);
+  const { likes } = useSelector((state) => state);
+  const [liked, setLiked] = useState(false);
 
-  console.log("+++++++++++++++++", prod_detail);
+  useEffect(() => {
+    if (likes.length > 0) {
+      likes.map((like) => {
+        if (like.prod_id === prod_detail.data.id) {
+          setLiked(true);
+        }
+      });
+    }
+  }, [likes]);
 
   const [mainImgSelected, setMainImgSelected] = useState(
     BASE_URL + prod_detail.data.main_image
@@ -187,7 +195,32 @@ const ProductsDetail = ({ prod_detail }) => {
                 }}
                 className="like"
               >
-                <Image src={like} width={25} height={25} />
+                {liked ? (
+                  <Image
+                    src={redLike}
+                    width={25}
+                    height={25}
+                    objectFit="contain"
+                  />
+                ) : (
+                  <Image
+                    src={like}
+                    width={25}
+                    height={25}
+                    objectFit="contain"
+                    onClick={() => {
+                      dispatch(
+                        addProductinLikes({
+                          prod_id: prod_detail.data.id,
+                          img_url: prod_detail.data.main_image,
+                          title: prod_detail.data.title_tm,
+                          price: prod_detail.data.price,
+                          desc: prod_detail.data.description_tm,
+                        })
+                      );
+                    }}
+                  />
+                )}
               </motion.div>
 
               <motion.div
@@ -207,6 +240,7 @@ const ProductsDetail = ({ prod_detail }) => {
                         title: prod_detail.data.title_tm,
                         price: prod_detail.data.price,
                         desc: prod_detail.data.description_tm,
+                        qty: 1,
                       })
                     )
                   }
@@ -262,7 +296,8 @@ const ProductsDetail = ({ prod_detail }) => {
                     <Image
                       src={BASE_URL + prod_detail.data.brand?.image}
                       width={150}
-                      height={50}
+                      height={60}
+                      objectFit="contain"
                     />
                   </a>
                 </Link>

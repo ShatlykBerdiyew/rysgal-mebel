@@ -7,7 +7,7 @@
 .header {
   width: 100%;
   background: #f9f8f8;
-  box-shadow: 0px 10px 50px 10px rgba(0, 0, 0, 0.25);
+  box-shadow: 0px 10px 20px 10px rgba(0, 0, 0, 0.25);
 }
 
 .sec1 {
@@ -88,7 +88,7 @@
   padding-left: 1rem;
   border-radius: 5px;
   font-size: 1.5rem;
-  box-shadow: 0px 10px 50px 10px rgba(0, 0, 0, 0.25);
+  /* box-shadow: 0px 10px 50px 10px rgba(0, 0, 0, 0.25); */
 }
 
 .search:focus {
@@ -110,7 +110,7 @@
 }
 
 .magazin_modal {
-  width: 100vw;
+  width: 100%;
   height: 100vh;
   background-color: rgba(164, 168, 170, 0.8);
   position: fixed;
@@ -173,4 +173,21 @@
 
 .subcat_item:hover {
   color: #000000;
+}
+
+.like_icon {
+  position: absolute;
+}
+
+.like_count {
+  position: relative;
+  transform: translate(20px, -5px);
+  font-size: 20px;
+  font-weight: 600;
+  color: red;
+}
+
+.like_section {
+  display: flex;
+  align-items: center;
 }

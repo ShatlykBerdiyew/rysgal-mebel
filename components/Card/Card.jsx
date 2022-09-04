@@ -1,16 +1,26 @@
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./card.module.css";
+import likeIcon from "../../public/like.png";
+import redLikedIcon from "../../public/heart.png";
 
-import Mebel1 from "../../public/mebel_1.png";
 import { BASE_URL } from "../../store/urls";
 import Link from "next/link";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addCard, deleteCard } from "../../store/actions/card";
+import { addProductinLikes } from "../../store/actions/likedProductsActions";
 
 const Card = ({ prod_id, img_url, title, price, desc, inCart = false }) => {
   const dispatch = useDispatch();
-
+  const { likes } = useSelector((state) => state);
+  const [liked, setLiked] = useState(false);
+  useEffect(() => {
+    likes.map((prod) => {
+      if (prod.prod_id === prod_id) {
+        setLiked(true);
+      }
+    });
+  }, [likes]);
   return (
     <div className={styles.card}>
       <Image
@@ -32,13 +42,29 @@ const Card = ({ prod_id, img_url, title, price, desc, inCart = false }) => {
           <span className={styles.card__price}>{price}</span>
         </div>
         <p>{desc.slice(0, 37)}...</p>
-        {/* <div className={styles.colors}>
-          <div className={styles.red}></div>
-          <div className={styles.green}></div>
-          <div className={styles.blue}></div>
-        </div> */}
 
         <div className={styles.card__btn}>
+          {liked ? (
+            <Image
+              src={redLikedIcon}
+              width={28}
+              height={28}
+              objectFit="contain"
+            />
+          ) : (
+            <Image
+              onClick={() =>
+                dispatch(
+                  addProductinLikes({ prod_id, img_url, title, price, desc })
+                )
+              }
+              src={likeIcon}
+              width={26}
+              height={26}
+              objectFit="contain"
+            />
+          )}
+
           <span
             style={inCart ? { background: "red" } : null}
             onClick={() => {

@@ -15,8 +15,6 @@ const CaruselComponent = () => {
     setImages(arr);
   }, [banner]);
 
-  console.log("carusel komponent: ", images);
-
   return (
     <ImageGallery
       showFullscreenButton={false}

@@ -20,13 +20,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { setSearchTitle } from "../../store/actions/search";
 import { useEffect, useState } from "react";
 import { BASE_URL } from "../../store/urls";
+import { addAllLocalLikes } from "../../store/actions/likedProductsActions";
 
 export default function Header() {
   const [magazinModalShow, setMagazinModalShow] = useState(false);
   const [gifData, setGifData] = useState(null);
   const [categoryListShow, setCategoryListShow] = useState(false);
 
-  const { card, search, user, category } = useSelector((state) => state);
+  const { card, search, user, category, likes } = useSelector((state) => state);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -36,6 +37,13 @@ export default function Header() {
         .then((json) => setGifData(json.data.image))
         .catch((err) => console.log(err));
     }
+    // ---------------localStorage da bar bolar like-lary redux-a yazmak. START!------------
+    const localLike = localStorage.getItem("like");
+    if (localLike && likes.length === 0) {
+      const pars = JSON.parse(localLike);
+      dispatch(addAllLocalLikes(pars));
+    }
+    // ---------------localStorage da bar bolar like-lary redux-a yazmak. START!------------
   }, []);
 
   return (
@@ -117,12 +125,22 @@ export default function Header() {
               </a>
             </Link>
           </div>
-          <Image
-            src={Like}
-            width={50}
-            height={48}
-            style={{ cursor: "pointer" }}
-          />
+          <Link href={"/like"}>
+            <a>
+              <div className={style.like_section}>
+                <div className={style.like_icon}>
+                  <Image
+                    src={Like}
+                    width={50}
+                    height={48}
+                    style={{ cursor: "pointer" }}
+                  />
+                </div>
+                <div className={style.like_count}>{likes.length}</div>
+              </div>
+            </a>
+          </Link>
+
           <ul className={style.navbar}>
             <li>
               <Image className={style.icons} width={48} height={48} src={Imo} />

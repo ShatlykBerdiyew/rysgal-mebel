@@ -130,6 +130,11 @@
   flex: 1;
 }
 
+.cart_main__item_title h3,
+p {
+  margin: 0;
+}
+
 .set_count {
   display: flex;
   align-items: center;
