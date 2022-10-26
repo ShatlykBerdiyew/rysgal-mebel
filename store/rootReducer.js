@@ -3,6 +3,7 @@ import { bannerReducer } from "./reducers/bannerReducer";
 import { brandReducer } from "./reducers/brandReducer";
 import { cardReducer } from "./reducers/cardReducer";
 import { categoryReducer } from "./reducers/categoryReducer";
+import { interyerReducer } from "./reducers/interyerReducer";
 import { likedProductsReducer } from "./reducers/likedProductsReducer";
 import { loadingReducer } from "./reducers/loadingReducer";
 import { orderReducer } from "./reducers/orderReducer";
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
   loading: loadingReducer,
   banner: bannerReducer,
   likes: likedProductsReducer,
+  interyer: interyerReducer,
 });
 
 export default rootReducer;

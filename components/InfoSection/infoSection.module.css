@@ -27,10 +27,43 @@
 
 .info_title {
   width: 50%;
+  padding-left: 1rem;
+  padding-top: 1rem;
+}
+
+.info_title > h3{
+  font-size: 30px;
+  line-height: 30px;
+  padding: 0;
+  margin-bottom: 2rem;
+}
+
+.info_title > span {
+
+}
+
+.info_title > span:hover{
+  background-color: antiquewhite;
+  cursor: pointer;
 }
 
 .interyer {
+  width: 90%;
+  margin: 0 auto;
   display: flex;
   justify-content: space-between;
   max-width: 1500px;
+  flex-wrap: wrap;
+}
+
+.btn_a{
+  border: 1px solid black;
+  padding: 0.3rem 1rem;
+  border-radius: 10px;
+  color: black;
+
+}
+.btn_a:hover{
+  background-color: antiquewhite;
+  cursor: pointer;
 }

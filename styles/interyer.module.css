@@ -1,0 +1,31 @@
+.interyer {
+  width: 100%;
+}
+
+.container {
+  width: 90%;
+  margin: 0 auto;
+  padding-top: 2rem;
+}
+
+.interyerFotos {
+  display: flex;
+  width: 100%;
+}
+
+.interyerDoska {
+  padding-top: 2rem;
+  display: flex;
+  /* justify-content: center;
+  align-items: center; */
+}
+
+.fon {
+  width: 100%;
+  position: relative;
+}
+
+.product {
+  position: absolute;
+  z-index: 99;
+}
