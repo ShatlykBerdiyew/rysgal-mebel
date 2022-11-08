@@ -1,1 +1,1 @@
-export const BASE_URL = "http://rysgal.sanly-achar.com";
+export const BASE_URL = "http://rysgalmebel.com";

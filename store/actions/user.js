@@ -1,5 +1,8 @@
 import {
   GET_USER_PROFILE,
+  IS_SMS_RESEND,
+  IS_SMS_SENT_SUCCESS,
+  IS_SMS_VERIFY,
   LOGAUT_USER,
   LOGIN_USER,
   UPDATE_PROFILE_INFO,
@@ -34,3 +37,24 @@ export const updateProfileInfo = (inputName, value) => {
     value: value,
   };
 };
+
+export const isSmsSendSuccess = (data) => {
+return{
+  type: IS_SMS_SENT_SUCCESS,
+  payload: data
+}
+}
+
+
+export const isSmsVerifySuccess = (data) => {
+  return{
+    type: IS_SMS_VERIFY,
+    payload: data
+  }
+  }
+
+  export const isSmsResend = () => {
+    return{
+      type: IS_SMS_RESEND,
+    }
+    }
