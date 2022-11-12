@@ -20,6 +20,7 @@ const Interyer = () => {
           {interyer.length > 0 &&
             interyer.map((item) => (
               <Image
+                key={item.id}
                 onClick={() => setSelectedInteryer(item)}
                 src={BASE_URL + item.image}
                 width={400}
@@ -62,6 +63,7 @@ const Interyer = () => {
           {products &&
             products.results.map((item) => (
               <Image
+                key={item.id}
                 src={BASE_URL + item.main_image}
                 width={200}
                 height={150}

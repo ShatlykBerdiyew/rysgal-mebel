@@ -65,15 +65,19 @@ export default function Header() {
           <div>
             <ul className={style.navbar}>
               <li>
-                <Image
-                  className={style.prof}
-                  width={25}
-                  height={25}
-                  objectFit="contain"
-                  src={playIcon}
-                  alt="phone"
-                />
-                <span>Медия</span>
+                <Link href={"/media"}>
+                  <a>
+                    <Image
+                      className={style.prof}
+                      width={25}
+                      height={25}
+                      objectFit="contain"
+                      src={playIcon}
+                      alt="phone"
+                    />
+                    <span>Медия</span>
+                  </a>
+                </Link>
               </li>
               <li onClick={() => setMagazinModalShow(true)}>
                 <Image
@@ -175,11 +179,11 @@ export default function Header() {
           >
             {category.data &&
               category.data.map((cat) => (
-                <div className={style.cat_item}>
+                <div key={cat.id} className={style.cat_item}>
                   <span>{cat.title_tm}</span>
                   <div className={style.subcat}>
                     {cat.subcategories.map((sub) => (
-                      <Link href={`/category/${sub.id}`}>
+                      <Link key={sub.id} href={`/category/${sub.id}`}>
                         <a>
                           <div className={style.subcat_item}>
                             {sub.title_tm}

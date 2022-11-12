@@ -310,8 +310,8 @@ export default function Profile() {
                   {selectedOrder === item.id && (
                     <div className={styles.order_detail}>
                       {orderDetailItems &&
-                        orderDetailItems.items.map((orderItem) => (
-                          <div className={styles.order_detail__item}>
+                        orderDetailItems.items.map((orderItem, index) => (
+                          <div key={index} className={styles.order_detail__item}>
                             <div className={styles.oder_item__image}>
                               <Image
                                 src={BASE_URL + orderItem.product.main_image}

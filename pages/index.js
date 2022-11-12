@@ -19,7 +19,12 @@ import { asyncGetCategoryList } from "../store/asyncActions/asyncGetCategoryList
 import { asyncGetProductsList } from "../store/asyncActions/asyncGetProducts";
 import styles from "../styles/Home.module.css";
 
+
+
+
 export default function Home() {
+
+  // console.log(products)
   const categories = useSelector((state) => state.category);
   const products = useSelector((state) => state.products);
   const { card, banner } = useSelector((state) => state);

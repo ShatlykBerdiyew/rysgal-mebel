@@ -4,6 +4,8 @@ import styles from "./homeSevtion.module.css";
 
 import Mebel from "../../public/home_section_mebel.png";
 
+
+
 const HomeSection = () => {
   return (
     <div className={styles.home_section}>

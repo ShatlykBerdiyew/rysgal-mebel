@@ -23,9 +23,26 @@ import Link from "next/link";
 import { addCard } from "../store/actions/card";
 import { addProductinLikes } from "../store/actions/likedProductsActions";
 
-export const getServerSideProps = async (contex) => {
-  const { id } = contex.params;
-  const response = await fetch(`${BASE_URL}/api/products/product-detail/${id}`);
+
+// export async function getStaticPaths() {
+//   // Call an external API endpoint to get posts
+//   const res = await fetch(`${BASE_URL}/api/products/product-detail/`)
+//   const products = await res.json()
+
+//   // Get the paths we want to pre-render based on posts
+//   const paths = products.map((post) => ({
+//     params: { id: post.id, fallback: false },
+//   }))
+
+//   // We'll pre-render only these paths at build time.
+//   // { fallback: false } means other routes should 404.
+//   return { paths, fallback: false }
+// }
+
+
+export const getServerSideProps  = async ({ getServerSideProps  }) => {
+  // const { id } = contex.params;
+  const response = await fetch(`${BASE_URL}/api/products/product-detail/${context.params.id}`);
   const data = await response.json();
 
   return {
@@ -33,7 +50,7 @@ export const getServerSideProps = async (contex) => {
   };
 };
 
-const ProductsDetail = ({ prod_detail }) => {
+const ProductsDetail = ({ prod_detail={} }) => {
   const recProds = useSelector((state) => state.products.results);
   const dispatch = useDispatch();
   console.log("prod_detail: ", prod_detail);

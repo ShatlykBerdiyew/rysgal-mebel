@@ -1,10 +1,15 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  images: {
-    domains: ["rysgalmebel.com"],
-  },
+  experimental: {
+    images: {
+        unoptimized: true,
+    }
+}
 };
 
 module.exports = nextConfig;
 // next config
+
+// domains: ['http://rysgalmebel.com'],
+

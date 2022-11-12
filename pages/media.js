@@ -3,9 +3,9 @@ import Header from "../components/header";
 import { BASE_URL } from "../store/urls";
 import s from "../styles/media.module.css";
 
-const media = () => {
+const Media = () => {
   const [loading, setLoading] = useState(false);
-  const [mediaList, setMediaList] = useState([]);
+  const [mediaList, setMediaList] = useState();
 
   useEffect(() => {
     if (mediaList.length === 0) {
@@ -41,4 +41,4 @@ const media = () => {
   );
 };
 
-export default media;
+export default Media;

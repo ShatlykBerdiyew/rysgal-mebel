@@ -7,14 +7,28 @@ import { asyncGetBrandList } from "../../store/asyncActions/asyncGetBrandList";
 import { BASE_URL } from "../../store/urls";
 import Link from "next/link";
 
-const Brends = () => {
-  const dispatch = useDispatch();
+// fetch(`${BASE_URL}/api/products/brands/`)
 
-  useEffect(() => {
-    dispatch(asyncGetBrandList());
-  }, []);
+export const getInitialProps = async (_context) => {
+  // fetch list of brands
+  const brands = await fetch(`${BASE_URL}/api/products/brands/`);
+  const brandList = await products.json();
+  return {
+    props: {
+      brandList: brandList,
+    },
+  }
+}
 
-  const brandList = useSelector((state) => state.brands.data);
+
+const Brends = ({brandList}) => {
+  // const dispatch = useDispatch();
+
+  // useEffect(() => {
+  //   dispatch(asyncGetBrandList());
+  // }, []);
+
+  // const brandList = useSelector((state) => state.brands.data);
 
   return (
     <div className={styles.brandes}>

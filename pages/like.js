@@ -32,7 +32,7 @@ const LikePage = () => {
               </div>
             ) : (
               likes.map((pro) => (
-                <div className={styles.like_product_item}>
+                <div key={pro.prod_id} className={styles.like_product_item}>
                   <Link href={`/${pro.prod_id}`}>
                     <a
                       style={{

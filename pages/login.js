@@ -124,7 +124,7 @@ useEffect(() => {
                 <>
                   <p>Parolynyzy gaytalan</p>
                   <input
-                    type="passowrd"
+                    type="password"
                     name="conf_password"
                     value={userData.conf_pasword}
                     onChange={(e) =>
@@ -140,7 +140,7 @@ useEffect(() => {
             {auth ? (
               <div className={styles.desc}>
                 Eger registrasiya bolmadyk boslanyz onda{" "}
-                <span onClick={() => setAuth(false)}>Registrasiya</span> basyn!
+                <span style={{cursor:'pointer'}} onClick={() => setAuth(false)}>Registrasiya</span> basyn!
               </div>
             ) : (
               <div className={styles.desc}>
