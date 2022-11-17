@@ -6,29 +6,31 @@ import { useDispatch, useSelector } from "react-redux";
 import { asyncGetBrandList } from "../../store/asyncActions/asyncGetBrandList";
 import { BASE_URL } from "../../store/urls";
 import Link from "next/link";
+import myImageLoader from "../loader/myloader";
 
 // fetch(`${BASE_URL}/api/products/brands/`)
 
-export const getInitialProps = async (_context) => {
-  // fetch list of brands
-  const brands = await fetch(`${BASE_URL}/api/products/brands/`);
-  const brandList = await products.json();
-  return {
-    props: {
-      brandList: brandList,
-    },
-  }
-}
+// export const getStaticProps = async () => {
+//   // fetch list of brands
+//   const brands = await fetch(`${BASE_URL}/api/products/brands/`);
+//   const brandList = await brands.json();
+//   console.log("gelmeyan brandlar: ", brandList)
+//   return {
+//     props: {
+//       brandList: brandList,
+//     },
+//   }
+// }
 
 
-const Brends = ({brandList}) => {
-  // const dispatch = useDispatch();
+const Brends = () => {
+  const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   dispatch(asyncGetBrandList());
-  // }, []);
+  useEffect(() => {
+    dispatch(asyncGetBrandList());
+  }, []);
 
-  // const brandList = useSelector((state) => state.brands.data);
+  const brandList = useSelector((state) => state.brands.data);
 
   return (
     <div className={styles.brandes}>
@@ -40,6 +42,7 @@ const Brends = ({brandList}) => {
                 <a>
                   <div className={styles.brand_img} key={item.id}>
                     <Image
+                    loader={myImageLoader}
                       src={BASE_URL + item.image}
                       width={340}
                       // layout="fill"

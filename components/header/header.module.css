@@ -40,8 +40,22 @@
   cursor: pointer;
 }
 
+.navbar_sec{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* margin-right: 10px; */
+  cursor: pointer;
+}
+
 .navbar > li > span {
-  font-size: 1.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 40.85px;
+  color: #000000;
+}
+.navbar_title {
+  font-size: 1rem;
   font-weight: 500;
   line-height: 40.85px;
   color: #000000;

@@ -10,6 +10,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { BASE_URL } from "../store/urls";
 import { deleteProductInLikes } from "../store/actions/likedProductsActions";
 import Link from "next/link";
+import myImageLoader from "../components/loader/myloader";
+import LocalImageLoader from "../components/loader/localLoader";
+import  ExportedImage  from  "next-image-export-optimizer"
 
 const LikePage = () => {
   const { likes } = useSelector((state) => state);
@@ -23,7 +26,7 @@ const LikePage = () => {
           <div className={styles.like_section__main}>
             {likes.length === 0 ? (
               <div className={styles.emptyIcon}>
-                <Image
+                <ExportedImage
                   src={likeEmptyIcon}
                   width={100}
                   height={100}
@@ -44,6 +47,7 @@ const LikePage = () => {
                       }}
                     >
                       <Image
+                      loader={myImageLoader}
                         src={BASE_URL + pro.img_url}
                         width={60}
                         height={60}
@@ -62,7 +66,7 @@ const LikePage = () => {
                     className={styles.like_product_item__action}
                     onClick={() => dispatch(deleteProductInLikes(pro.prod_id))}
                   >
-                    <Image
+                    <ExportedImage
                       src={deleteIcon}
                       width={20}
                       height={20}

@@ -21,6 +21,9 @@ import { setSearchTitle } from "../../store/actions/search";
 import { useEffect, useState } from "react";
 import { BASE_URL } from "../../store/urls";
 import { addAllLocalLikes } from "../../store/actions/likedProductsActions";
+import myImageLoader from "../loader/myloader";
+import LocalImageLoader from "../loader/localLoader";
+import  ExportedImage  from  "next-image-export-optimizer"
 
 export default function Header() {
   const [magazinModalShow, setMagazinModalShow] = useState(false);
@@ -53,21 +56,21 @@ export default function Header() {
           <div style={{ cursor: "pointer" }}>
             <Link href="/">
               <a>
-                <Image src={Logo} alt="logo" />
+                <ExportedImage src={Logo} alt="logo" />
               </a>
             </Link>
           </div>
           <div className={style.gif_section}>
             {gifData && (
-              <Image src={BASE_URL + gifData} width={1000} height={80} />
+              <Image loader={myImageLoader} src={BASE_URL + gifData} width={1000} height={80} />
             )}
           </div>
           <div>
             <ul className={style.navbar}>
               <li>
                 <Link href={"/media"}>
-                  <a>
-                    <Image
+                  <a className={style.navbar_sec}>
+                    <ExportedImage
                       className={style.prof}
                       width={25}
                       height={25}
@@ -75,12 +78,12 @@ export default function Header() {
                       src={playIcon}
                       alt="phone"
                     />
-                    <span>Медия</span>
+                    <span className={style.navbar_title}>Медия</span>
                   </a>
                 </Link>
               </li>
               <li onClick={() => setMagazinModalShow(true)}>
-                <Image
+                <ExportedImage
                   className={style.prof}
                   width={25}
                   height={25}
@@ -92,8 +95,8 @@ export default function Header() {
               </li>
               <li>
                 <Link href={user.token ? "/profile" : "/login"}>
-                  <a className={style.profile_link}>
-                    <Image
+                  <a className={style.navbar_sec}>
+                    <ExportedImage
                       className={style.prof}
                       width={30}
                       height={30}
@@ -101,7 +104,7 @@ export default function Header() {
                       src={User}
                       alt="user"
                     />
-                    <span>Профиль</span>
+                    <span className={style.navbar_title}>Профиль</span>
                   </a>
                 </Link>
               </li>
@@ -124,7 +127,7 @@ export default function Header() {
             <Link href={"/search"}>
               <a>
                 <Button1>
-                  <Image width={35} height={35} src={SearchIcon} />
+                  <ExportedImage width={35} height={35} src={SearchIcon} />
                 </Button1>
               </a>
             </Link>
@@ -133,7 +136,7 @@ export default function Header() {
             <a>
               <div className={style.like_section}>
                 <div className={style.like_icon}>
-                  <Image
+                  <ExportedImage
                     src={Like}
                     width={50}
                     height={48}
@@ -147,10 +150,10 @@ export default function Header() {
 
           <ul className={style.navbar}>
             <li>
-              <Image className={style.icons} width={48} height={48} src={Imo} />
+              <ExportedImage className={style.icons} width={48} height={48} src={Imo} />
             </li>
             <li>
-              <Image
+              <ExportedImage
                 className={style.icons}
                 width={48}
                 height={48}
@@ -158,7 +161,7 @@ export default function Header() {
               />
             </li>
             <li>
-              <Image
+              <ExportedImage
                 className={style.icons}
                 width={48}
                 height={48}
@@ -168,7 +171,7 @@ export default function Header() {
           </ul>
           <Link href={`/cart`}>
             <a className={style.cart}>
-              <Image src={Cart} width={43} height={45} />+{card.length}
+              <ExportedImage src={Cart} width={43} height={45} />+{card.length}
             </a>
           </Link>
         </div>
@@ -203,7 +206,7 @@ export default function Header() {
             className={style.magazin_modal__close}
             onClick={() => setMagazinModalShow(false)}
           >
-            <Image src={CloseIcon} width={36} height={36} />
+            <ExportedImage src={CloseIcon} width={36} height={36} />
           </div>
           <div className={style.magazin_modal__container}>
             <div className={style.karta_modal}>

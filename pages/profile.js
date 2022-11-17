@@ -16,6 +16,9 @@ import { BASE_URL } from "../store/urls";
 import Link from "next/link";
 import { logautUser, updateProfileInfo } from "../store/actions/user";
 import axios from "axios";
+import myImageLoader from "../components/loader/myloader";
+import LocalImageLoader from "../components/loader/localLoader";
+import  ExportedImage  from  "next-image-export-optimizer"
 
 export default function Profile() {
   const [orderList, setOrderList] = useState([]);
@@ -113,7 +116,7 @@ export default function Profile() {
         <div className={styles.profile_page__header}>
           <Link href={"/"}>
             <a>
-              <Image src={backArray} width={34} height={28} />
+              <ExportedImage src={backArray} width={34} height={28} />
             </a>
           </Link>
           <div
@@ -132,7 +135,7 @@ export default function Profile() {
             }}
           >
             <span>Profilden chykmak</span>
-            <Image src={logautIcon} width={34} height={28} />
+            <ExportedImage src={logautIcon} width={34} height={28} />
           </div>
         </div>
         <div className={styles.profil_section}>
@@ -141,6 +144,7 @@ export default function Profile() {
             <div className={styles.prof_image}>
               {!profilInfoEdit ? (
                 <Image
+                loader={myImageLoader}
                   src={`${BASE_URL}${profileData ? profileData.image : "/"}`}
                   width={1}
                   height={1}
@@ -301,9 +305,9 @@ export default function Profile() {
                       onClick={() => handleOrderDetail(item.id)}
                     >
                       {selectedOrder === item.id ? (
-                        <Image src={upArrow} width={26} height={26} />
+                        <ExportedImage src={upArrow} width={26} height={26} />
                       ) : (
-                        <Image src={downArrow} width={26} height={26} />
+                        <ExportedImage src={downArrow} width={26} height={26} />
                       )}
                     </div>
                   </div>
@@ -314,6 +318,7 @@ export default function Profile() {
                           <div key={index} className={styles.order_detail__item}>
                             <div className={styles.oder_item__image}>
                               <Image
+                              loader={myImageLoader}
                                 src={BASE_URL + orderItem.product.main_image}
                                 width={50}
                                 height={50}

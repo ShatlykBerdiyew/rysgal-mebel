@@ -4,14 +4,28 @@ import Header from "../../components/header";
 import { BASE_URL } from "../../store/urls";
 // import "../../styles/brand_products.css";
 
-export const getServerSideProps = async (contex) => {
-  const { id } = contex.params;
+export async function getStaticPaths() {
+  return {
+    paths: [
+      { params: { id: "1" } },
+      { params: { id: "2" } },
+      { params: { id: "3" } },
+      { params: { id: "4" } },
+      { params: { id: "5" } },
+      { params: { id: "6" } },
+      { params: { id: "7" } },
+      { params: { id: "8" } },
+    ],
+    fallback: false,
+  };
+}
+
+export const getStaticProps = async (context) => {
+  const { id } = context.params;
 
   console.log(id, typeof id);
   const response = await fetch(
-    `${BASE_URL}/api/products/product-list/?brand=${Number(
-      id
-    )}&limit=10&offset=0`
+    `${BASE_URL}/api/products/product-list/?brand=${id}&limit=10&offset=0`
   );
   const data = await response.json();
 
@@ -21,9 +35,9 @@ export const getServerSideProps = async (contex) => {
   const category_data = await fetch(`${BASE_URL}/api/products/categories/`);
   const category_list = await category_data.json();
 
-  let selected_brand;
+  let selected_brand = {};
 
-  brand_datas.data?.map((br) => {
+  brand_datas?.data?.map((br) => {
     if (br.id == id) {
       selected_brand = br;
     }
@@ -37,7 +51,7 @@ export const getServerSideProps = async (contex) => {
 
   return {
     props: {
-      products: data,
+      products: data | {},
       brand: selected_brand,
       categories: category_list,
     },
@@ -51,7 +65,9 @@ const BrandProducts = ({ products, brand, categories }) => {
       <Header />
       <div className="brand__products_container">
         <div className="brand__products_header">
-          <div className="brand__product_title">{brand.title}</div>
+          <div className="brand__product_title">
+            {brand?.title && brand.title}
+          </div>
           <div
             style={{
               // paddingLeft: "1rem",
@@ -62,13 +78,13 @@ const BrandProducts = ({ products, brand, categories }) => {
               borderBottom: "1px solid black",
             }}
           >
-            sany: {products.data.count}
+            sany: {products?.data?.count}
           </div>
         </div>
         <div className="brand__products_main">
           <div className="brand__products_filter">
             {categories &&
-              categories.data.map((cat) => (
+              categories.data?.map((cat) => (
                 <div key={cat.id} className="filter__item">
                   <p style={{ borderBottom: "1px solid black" }}>
                     {cat.title_tm}
@@ -95,7 +111,7 @@ const BrandProducts = ({ products, brand, categories }) => {
               ))}
           </div>
           <div className="brand__products_view">
-            {products.data.results &&
+            {products.data?.results &&
               products.data.results.map((pro) => (
                 <Card
                   key={pro.id}

@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "export": "next build && next export",
+    "export": "next build && next export && next-image-export-optimizer",
     "start": "next start",
     "lint": "next lint"
   },
@@ -15,6 +15,7 @@
     "classnames": "^2.3.1",
     "framer-motion": "^6.5.1",
     "next": "12.1.6",
+    "next-image-export-optimizer": "^0.17.1",
     "next-redux-wrapper": "^7.0.5",
     "react": "18.2.0",
     "react-dom": "18.2.0",

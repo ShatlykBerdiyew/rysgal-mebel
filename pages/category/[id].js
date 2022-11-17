@@ -3,8 +3,22 @@ import Card from "../../components/Card/Card";
 import Header from "../../components/header";
 import { BASE_URL } from "../../store/urls";
 
-export const getServerSideProps = async (contex) => {
-  const { id } = contex.params;
+export async function getStaticPaths() {
+  const brands = await fetch(`${BASE_URL}/api/products/brands/`);
+  const brand_datas = await brands.json();
+  let path = [];
+  brand_datas.length &&
+    brand_datas.data?.map((p) => {
+      path.push(p.id);
+    });
+  return {
+    paths: path,
+    fallback: false,
+  };
+}
+
+export const getStaticProps = async () => {
+  const { id } = params;
 
   console.log(id, typeof id);
   const response = await fetch(

@@ -5,6 +5,7 @@ import styles from "../styles/interyer.module.css";
 import { BASE_URL } from "../store/urls";
 
 import { motion } from "framer-motion";
+import myImageLoader from "../components/loader/myloader";
 
 const Interyer = () => {
   const { interyer, products } = useSelector((state) => state);
@@ -20,6 +21,7 @@ const Interyer = () => {
           {interyer.length > 0 &&
             interyer.map((item) => (
               <Image
+              loader={myImageLoader}
                 key={item.id}
                 onClick={() => setSelectedInteryer(item)}
                 src={BASE_URL + item.image}
@@ -32,6 +34,7 @@ const Interyer = () => {
           <div className={styles.fon}>
             {selectedInteryer && (
               <Image
+              loader={myImageLoader}
                 src={BASE_URL + selectedInteryer.image}
                 width={15}
                 height={6}
@@ -51,6 +54,7 @@ const Interyer = () => {
           >
             {selectedProduct && (
               <Image
+              loader={myImageLoader}
                 src={BASE_URL + selectedProduct.main_image}
                 width={300}
                 height={200}
@@ -63,6 +67,7 @@ const Interyer = () => {
           {products &&
             products.results.map((item) => (
               <Image
+              loader={myImageLoader}
                 key={item.id}
                 src={BASE_URL + item.main_image}
                 width={200}

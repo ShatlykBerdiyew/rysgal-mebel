@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 
 import Slider from "react-slick";
+import  ExportedImage  from  "next-image-export-optimizer"
 
 import like from "../public/like.png";
 import redLike from "../public/heart.png";
@@ -22,40 +23,46 @@ import Header from "../components/header";
 import Link from "next/link";
 import { addCard } from "../store/actions/card";
 import { addProductinLikes } from "../store/actions/likedProductsActions";
-
+import myImageLoader from "../components/loader/myloader";
+import LocalImageLoader from "../components/loader/localLoader";
+import { useRouter } from "next/router";
 
 // export async function getStaticPaths() {
-//   // Call an external API endpoint to get posts
-//   const res = await fetch(`${BASE_URL}/api/products/product-detail/`)
-//   const products = await res.json()
-
-//   // Get the paths we want to pre-render based on posts
+//   const products = ["1", "2", "3", "4", "5", "6", "10"];
 //   const paths = products.map((post) => ({
-//     params: { id: post.id, fallback: false },
-//   }))
-
-//   // We'll pre-render only these paths at build time.
-//   // { fallback: false } means other routes should 404.
-//   return { paths, fallback: false }
+//     params: { id: post },
+//   }));
+//   return { paths, fallback: false };
 // }
 
+// export const getStaticProps = async (contex) => {
+//   // const { id } = contex.params;
+//   const response = await fetch(
+//     `${BASE_URL}/api/products/product-detail/${contex.params.id}`
+//   );
+//   const data = await response.json();
 
-export const getServerSideProps  = async ({ getServerSideProps  }) => {
-  // const { id } = contex.params;
-  const response = await fetch(`${BASE_URL}/api/products/product-detail/${context.params.id}`);
-  const data = await response.json();
+//   return {
+//     props: { prod_detail: data },
+//   };
+// };
 
-  return {
-    props: { prod_detail: data },
-  };
-};
-
-const ProductsDetail = ({ prod_detail={} }) => {
+const ProductsDetail = () => {
   const recProds = useSelector((state) => state.products.results);
   const dispatch = useDispatch();
-  console.log("prod_detail: ", prod_detail);
+  // console.log("prod_detail: ", prod_detail);
   const { likes } = useSelector((state) => state);
   const [liked, setLiked] = useState(false);
+  const { asPath } = useRouter();
+
+console.log('url: ', asPath)
+  useEffect(() => {
+    asPath && fetch(`${BASE_URL}/api/products/product-detail${asPath}`)
+      .then(res => res.json())
+      .then(json => console.log('Products_details: ', json))
+      .catch(err => console.log("Gelyan yalnyshlyk", err))
+  },[])
+
 
   useEffect(() => {
     if (likes.length > 0) {
@@ -68,16 +75,17 @@ const ProductsDetail = ({ prod_detail={} }) => {
   }, [likes]);
 
   const [mainImgSelected, setMainImgSelected] = useState(
-    BASE_URL + prod_detail.data.main_image
+    // (BASE_URL + prod_detail?.data.main_image) | ""
+    ""
   );
   const [changeImg, setChangeImg] = useState(false);
   useEffect(() => {
     setChangeImg(!changeImg);
   }, [mainImgSelected]);
 
-  useEffect(() => {
-    setMainImgSelected(BASE_URL + prod_detail.data.main_image);
-  }, [prod_detail]);
+  // useEffect(() => {
+  //   setMainImgSelected(BASE_URL + prod_detail.data.main_image);
+  // }, [prod_detail]);
 
   const [selected, setSelected] = useState(1);
 
@@ -115,7 +123,7 @@ const ProductsDetail = ({ prod_detail={} }) => {
         }}
         onClick={onClick}
       >
-        <Image src={card} width={50} height={50} />
+        <ExportedImage src={card} width={50} height={50} />
       </div>
     );
   }
@@ -139,7 +147,7 @@ const ProductsDetail = ({ prod_detail={} }) => {
   return (
     <div className="product_detail">
       <Header />
-      <div className="container">
+      {/* <div className="container">
         <div className="boshluk"></div>
         <div className="detail_section">
           <div className="image_container">
@@ -150,7 +158,12 @@ const ProductsDetail = ({ prod_detail={} }) => {
               variants={variants}
               className="image__slider"
             >
-              <Image src={mainImgSelected} width={500} height={450} />
+              <Image
+                loader={myImageLoader}
+                src={mainImgSelected}
+                width={500}
+                height={450}
+              />
             </motion.div>
             <div className="slide_elements">
               <motion.div
@@ -165,7 +178,8 @@ const ProductsDetail = ({ prod_detail={} }) => {
                 }
               >
                 <Image
-                  src={BASE_URL + prod_detail.data.main_image}
+                  loader={myImageLoader}
+                  src={BASE_URL + prod_detail.data?.main_image}
                   objectFit="cover"
                   // layout="fill"
                   width={100}
@@ -183,6 +197,7 @@ const ProductsDetail = ({ prod_detail={} }) => {
                   onClick={() => setMainImgSelected(BASE_URL + item.image)}
                 >
                   <Image
+                    loader={myImageLoader}
                     src={BASE_URL + item.image}
                     objectFit="cover"
                     // layout="fill"
@@ -213,14 +228,14 @@ const ProductsDetail = ({ prod_detail={} }) => {
                 className="like"
               >
                 {liked ? (
-                  <Image
+                  <ExportedImage
                     src={redLike}
                     width={25}
                     height={25}
                     objectFit="contain"
                   />
                 ) : (
-                  <Image
+                  <ExportedImage
                     src={like}
                     width={25}
                     height={25}
@@ -229,7 +244,7 @@ const ProductsDetail = ({ prod_detail={} }) => {
                       dispatch(
                         addProductinLikes({
                           prod_id: prod_detail.data.id,
-                          img_url: prod_detail.data.main_image,
+                          img_url: prod_detail.data.main_image | "",
                           title: prod_detail.data.title_tm,
                           price: prod_detail.data.price,
                           desc: prod_detail.data.description_tm,
@@ -253,7 +268,7 @@ const ProductsDetail = ({ prod_detail={} }) => {
                     dispatch(
                       addCard({
                         prod_id: prod_detail.data.id,
-                        img_url: prod_detail.data.main_image,
+                        img_url: prod_detail.data.main_image | "",
                         title: prod_detail.data.title_tm,
                         price: prod_detail.data.price,
                         desc: prod_detail.data.description_tm,
@@ -262,7 +277,12 @@ const ProductsDetail = ({ prod_detail={} }) => {
                     )
                   }
                 >
-                  <Image src={card} width={`20px`} height={`25px`} />{" "}
+                  <Image
+                    loader={LocalImageLoader}
+                    src={card}
+                    width={`20px`}
+                    height={`25px`}
+                  />{" "}
                   <span style={{ paddingLeft: "15px" }}>to Card</span>
                 </div>
               </motion.div>
@@ -287,7 +307,12 @@ const ProductsDetail = ({ prod_detail={} }) => {
 
             <div className="dostawka">
               <div className="dostawka_item">
-                <Image src={icon1} alt="icon" width={45} height={45} />
+                <ExportedImage
+                  src={icon1}
+                  alt="icon"
+                  width={45}
+                  height={45}
+                />
                 <span>
                   Доставка Партнёра Доставка товара будет произведена со склада
                   партнёра 2-4 дня
@@ -295,12 +320,23 @@ const ProductsDetail = ({ prod_detail={} }) => {
               </div>
               <div className="boshluk_1"></div>
               <div className="dostawka_item">
-                <Image src={icon2} alt="icon" width={45} height={45} />
+                <Image
+                  loader={LocalImageLoader}
+                  src={icon2}
+                  alt="icon"
+                  width={45}
+                  height={45}
+                />
                 <span>Стоимость доставки в пределах МКАДа 699 Р.</span>
               </div>
               <div className="boshluk_1"></div>
               <div className="dostawka_item">
-                <Image src={icon3} alt="icon" width={45} height={45} />
+                <ExportedImage
+                  src={icon3}
+                  alt="icon"
+                  width={45}
+                  height={45}
+                />
                 <span>Сборка мебели 1 700 Р.</span>
               </div>
             </div>
@@ -311,6 +347,7 @@ const ProductsDetail = ({ prod_detail={} }) => {
                 <Link href={`/brand/${prod_detail.data.brand.id}`}>
                   <a>
                     <Image
+                      loader={myImageLoader}
                       src={BASE_URL + prod_detail.data.brand?.image}
                       width={150}
                       height={60}
@@ -319,9 +356,7 @@ const ProductsDetail = ({ prod_detail={} }) => {
                   </a>
                 </Link>
               )}
-              {/* <div className={styles.brand_image}>
-                <Image src={brand} />
-              </div> */}
+   
             </div>
           </div>
         </div>
@@ -379,7 +414,6 @@ const ProductsDetail = ({ prod_detail={} }) => {
         <div className="boshluk"></div>
         <div className="rec_products">
           <h2>Maslahat berilyan harytlar</h2>
-          {/* <div className={styles.products_container}> */}
           <Slider {...settings}>
             {prod_detail.similar_products.length > 0
               ? prod_detail.similar_products.map((item) => {
@@ -387,7 +421,7 @@ const ProductsDetail = ({ prod_detail={} }) => {
                     <Card
                       key={item.id}
                       prod_id={item.id}
-                      img_url={item.main_image}
+                      img_url={item.main_image | ""}
                       title={item.title_tm}
                       price={item.get_price}
                       desc={item.description_tm}
@@ -396,9 +430,8 @@ const ProductsDetail = ({ prod_detail={} }) => {
                 })
               : null}
           </Slider>
-          {/* </div> */}
         </div>
-      </div>
+      </div> */}
       <Footer />
     </div>
   );
