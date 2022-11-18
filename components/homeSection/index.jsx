@@ -3,8 +3,7 @@ import React from "react";
 import styles from "./homeSevtion.module.css";
 
 import Mebel from "../../public/home_section_mebel.png";
-import myImageLoader from "../loader/myloader";
-import  ExportedImage  from  "next-image-export-optimizer"
+// import myImageLoader from "../loader/myloader";
 
 
 
@@ -22,7 +21,7 @@ const HomeSection = () => {
         </div>
         <div className={styles.right_section}>
           <div style={{width:'100%'}}>
-            <ExportedImage
+            <Image
               className={styles.home_section__image}
               src={Mebel}
               width={685}

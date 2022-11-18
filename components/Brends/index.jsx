@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { asyncGetBrandList } from "../../store/asyncActions/asyncGetBrandList";
 import { BASE_URL } from "../../store/urls";
 import Link from "next/link";
-import myImageLoader from "../loader/myloader";
+// import myImageLoader from "../loader/myloader";
 
 // fetch(`${BASE_URL}/api/products/brands/`)
 
@@ -42,7 +42,7 @@ const Brends = () => {
                 <a>
                   <div className={styles.brand_img} key={item.id}>
                     <Image
-                    loader={myImageLoader}
+                    // loader={myImageLoader}
                       src={BASE_URL + item.image}
                       width={340}
                       // layout="fill"

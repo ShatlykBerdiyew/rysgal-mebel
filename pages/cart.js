@@ -17,9 +17,8 @@ import { asyncOrderCreate } from "../store/asyncActions/asyncOrder";
 import cn from "classnames";
 import Loading from "../components/Loading";
 import Router from "next/router";
-import myImageLoader from "../components/loader/myloader";
-import LocalImageLoader from "../components/loader/localLoader";
-import  ExportedImage  from  "next-image-export-optimizer"
+// import myImageLoader from "../components/loader/myloader";
+// import LocalImageLoader from "../components/loader/localLoader";
 
 const Cart = () => {
   const { card, user, loading, order } = useSelector((state) => state);
@@ -105,7 +104,7 @@ const Cart = () => {
             <div>
               <Link href={`/`}>
                 <a>
-                  <ExportedImage src={left_array} width={26} height={24} />
+                  <Image src={left_array} width={26} height={24} />
                 </a>
               </Link>
             </div>
@@ -113,7 +112,7 @@ const Cart = () => {
               <span>Continue Shopping</span>
             </div>
             <div>
-              <ExportedImage src={delete_icon} width={26} height={26} />
+              <Image src={delete_icon} width={26} height={26} />
             </div>
           </div>
           <div className="cart_main">
@@ -136,7 +135,6 @@ const Cart = () => {
                       <div className="cart_main__item">
                         <div className="cart_main__item_image">
                           <Image
-                          loader={myImageLoader}
                             src={BASE_URL + item.img_url}
                             width={50}
                             height={50}
@@ -148,7 +146,7 @@ const Cart = () => {
                         </div>
                         <div className="set_count">
                           <div className="set_count__image">
-                            <ExportedImage
+                            <Image
                               src={minus}
                               width={24}
                               height={24}
@@ -162,7 +160,7 @@ const Cart = () => {
                           </div>
                           <span className="count">{item.qty}</span>
                           <div className="set_count__image">
-                            <ExportedImage
+                            <Image
                               src={plus}
                               width={24}
                               height={24}
@@ -180,7 +178,7 @@ const Cart = () => {
                           className="cart_main__item_delete"
                           onClick={() => dispatch(deleteCard(item.prod_id))}
                         >
-                          <ExportedImage
+                          <Image
                             src={delete_item_icon}
                             width={24}
                             height={24}

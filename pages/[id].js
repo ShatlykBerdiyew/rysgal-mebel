@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 
 import Slider from "react-slick";
-import  ExportedImage  from  "next-image-export-optimizer"
 
 import like from "../public/like.png";
 import redLike from "../public/heart.png";
@@ -23,8 +22,8 @@ import Header from "../components/header";
 import Link from "next/link";
 import { addCard } from "../store/actions/card";
 import { addProductinLikes } from "../store/actions/likedProductsActions";
-import myImageLoader from "../components/loader/myloader";
-import LocalImageLoader from "../components/loader/localLoader";
+// import myImageLoader from "../components/loader/myloader";
+// import LocalImageLoader from "../components/loader/localLoader";
 import { useRouter } from "next/router";
 
 // export async function getStaticPaths() {
@@ -35,33 +34,33 @@ import { useRouter } from "next/router";
 //   return { paths, fallback: false };
 // }
 
-// export const getStaticProps = async (contex) => {
-//   // const { id } = contex.params;
-//   const response = await fetch(
-//     `${BASE_URL}/api/products/product-detail/${contex.params.id}`
-//   );
-//   const data = await response.json();
+export const getServerSideProps = async (contex) => {
+  // const { id } = contex.params;
+  const response = await fetch(
+    `${BASE_URL}/api/products/product-detail/${contex.params.id}`
+  );
+  const data = await response.json();
 
-//   return {
-//     props: { prod_detail: data },
-//   };
-// };
+  return {
+    props: { prod_detail: data },
+  };
+};
 
-const ProductsDetail = () => {
+const ProductsDetail = ({prod_detail}) => {
   const recProds = useSelector((state) => state.products.results);
   const dispatch = useDispatch();
-  // console.log("prod_detail: ", prod_detail);
+  console.log("prod_detail: ", prod_detail);
   const { likes } = useSelector((state) => state);
   const [liked, setLiked] = useState(false);
   const { asPath } = useRouter();
 
-console.log('url: ', asPath)
-  useEffect(() => {
-    asPath && fetch(`${BASE_URL}/api/products/product-detail${asPath}`)
-      .then(res => res.json())
-      .then(json => console.log('Products_details: ', json))
-      .catch(err => console.log("Gelyan yalnyshlyk", err))
-  },[])
+// console.log('url: ', asPath)
+//   useEffect(() => {
+//     asPath && fetch(`${BASE_URL}/api/products/product-detail${asPath}`)
+//       .then(res => res.json())
+//       .then(json => console.log('Products_details: ', json))
+//       .catch(err => console.log("Gelyan yalnyshlyk", err))
+//   },[])
 
 
   useEffect(() => {
@@ -74,18 +73,15 @@ console.log('url: ', asPath)
     }
   }, [likes]);
 
-  const [mainImgSelected, setMainImgSelected] = useState(
-    // (BASE_URL + prod_detail?.data.main_image) | ""
-    ""
-  );
+  const [mainImgSelected, setMainImgSelected] = useState(BASE_URL);
   const [changeImg, setChangeImg] = useState(false);
   useEffect(() => {
     setChangeImg(!changeImg);
   }, [mainImgSelected]);
 
-  // useEffect(() => {
-  //   setMainImgSelected(BASE_URL + prod_detail.data.main_image);
-  // }, [prod_detail]);
+  useEffect(() => {
+    setMainImgSelected(BASE_URL + prod_detail.data.main_image);
+  }, [prod_detail]);
 
   const [selected, setSelected] = useState(1);
 
@@ -123,7 +119,7 @@ console.log('url: ', asPath)
         }}
         onClick={onClick}
       >
-        <ExportedImage src={card} width={50} height={50} />
+        <Image src={card} width={50} height={50} />
       </div>
     );
   }
@@ -147,7 +143,7 @@ console.log('url: ', asPath)
   return (
     <div className="product_detail">
       <Header />
-      {/* <div className="container">
+      <div className="container">
         <div className="boshluk"></div>
         <div className="detail_section">
           <div className="image_container">
@@ -158,12 +154,11 @@ console.log('url: ', asPath)
               variants={variants}
               className="image__slider"
             >
-              <Image
-                loader={myImageLoader}
+              {mainImgSelected && <Image
                 src={mainImgSelected}
                 width={500}
                 height={450}
-              />
+              />}
             </motion.div>
             <div className="slide_elements">
               <motion.div
@@ -177,16 +172,15 @@ console.log('url: ', asPath)
                   setMainImgSelected(BASE_URL + prod_detail.data.main_image)
                 }
               >
-                <Image
-                  loader={myImageLoader}
+                {prod_detail.data?.main_image && <Image
                   src={BASE_URL + prod_detail.data?.main_image}
                   objectFit="cover"
                   // layout="fill"
                   width={100}
                   height={100}
-                />
+                />}
               </motion.div>
-              {prod_detail.data.image_list.map((item) => (
+              {prod_detail.data?.image_list?.map((item) => (
                 <motion.div
                   key={item.id}
                   whileHover={{
@@ -197,7 +191,6 @@ console.log('url: ', asPath)
                   onClick={() => setMainImgSelected(BASE_URL + item.image)}
                 >
                   <Image
-                    loader={myImageLoader}
                     src={BASE_URL + item.image}
                     objectFit="cover"
                     // layout="fill"
@@ -228,14 +221,14 @@ console.log('url: ', asPath)
                 className="like"
               >
                 {liked ? (
-                  <ExportedImage
+                  <Image
                     src={redLike}
                     width={25}
                     height={25}
                     objectFit="contain"
                   />
                 ) : (
-                  <ExportedImage
+                  <Image
                     src={like}
                     width={25}
                     height={25}
@@ -278,7 +271,6 @@ console.log('url: ', asPath)
                   }
                 >
                   <Image
-                    loader={LocalImageLoader}
                     src={card}
                     width={`20px`}
                     height={`25px`}
@@ -307,7 +299,7 @@ console.log('url: ', asPath)
 
             <div className="dostawka">
               <div className="dostawka_item">
-                <ExportedImage
+                <Image
                   src={icon1}
                   alt="icon"
                   width={45}
@@ -321,7 +313,6 @@ console.log('url: ', asPath)
               <div className="boshluk_1"></div>
               <div className="dostawka_item">
                 <Image
-                  loader={LocalImageLoader}
                   src={icon2}
                   alt="icon"
                   width={45}
@@ -331,7 +322,7 @@ console.log('url: ', asPath)
               </div>
               <div className="boshluk_1"></div>
               <div className="dostawka_item">
-                <ExportedImage
+                <Image
                   src={icon3}
                   alt="icon"
                   width={45}
@@ -347,7 +338,6 @@ console.log('url: ', asPath)
                 <Link href={`/brand/${prod_detail.data.brand.id}`}>
                   <a>
                     <Image
-                      loader={myImageLoader}
                       src={BASE_URL + prod_detail.data.brand?.image}
                       width={150}
                       height={60}
@@ -421,7 +411,7 @@ console.log('url: ', asPath)
                     <Card
                       key={item.id}
                       prod_id={item.id}
-                      img_url={item.main_image | ""}
+                      img_url={item.main_image}
                       title={item.title_tm}
                       price={item.get_price}
                       desc={item.description_tm}
@@ -431,7 +421,7 @@ console.log('url: ', asPath)
               : null}
           </Slider>
         </div>
-      </div> */}
+      </div>
       <Footer />
     </div>
   );

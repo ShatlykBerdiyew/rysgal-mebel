@@ -10,8 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { asyncGetInteryerList } from "../../store/asyncActions/asyncGetInteryer";
 import { BASE_URL } from "../../store/urls";
 import Slider from "react-slick";
-import myImageLoader from "../loader/myloader";
-import  ExportedImage  from  "next-image-export-optimizer"
+// import myImageLoader from "../loader/myloader";
 
 const InfoSection = () => {
   const dispatch = useDispatch();
@@ -45,7 +44,7 @@ const InfoSection = () => {
               </Link>
             </div>
             <div className={styles.info_img}>
-              <ExportedImage src={AR_banner} objectFit="cover" alt="banner" />
+              <Image src={AR_banner} objectFit="cover" alt="banner" />
             </div>
           </div>
 
@@ -55,7 +54,7 @@ const InfoSection = () => {
               <span className={styles.btn_a}>УЗНАТЬ БОЛЬШЕ</span>
             </div>
             <div className={styles.info_img}>
-              <ExportedImage src={dostawka} objectFit="cover" alt="banner" />
+              <Image src={dostawka} objectFit="cover" alt="banner" />
             </div>
           </div>
         </div>
@@ -65,7 +64,7 @@ const InfoSection = () => {
           {interyer.length > 0 &&
             interyer.map((item) => (
               <Image
-              loader={myImageLoader}
+              // loader={myImageLoader}
                 src={BASE_URL + item.image}
                 key={item.id}
                 width={300}

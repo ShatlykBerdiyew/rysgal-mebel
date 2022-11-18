@@ -11,9 +11,8 @@ import { useState } from "react";
 import Link from "next/link";
 import VerticalMenu from "../vertical-menu/Vertical-menu";
 import CaruselComponent from "../carusel/carusel";
-import myImageLoader from "../loader/myloader";
-import LocalImageLoader from "../loader/localLoader";
-import  ExportedImage  from  "next-image-export-optimizer"
+// import myImageLoader from "../loader/myloader";
+// import LocalImageLoader from "../loader/localLoader";
 
 const CategorySection = () => {
   const [selectedCat, setSelectedcat] = useState(null);
@@ -26,7 +25,7 @@ const CategorySection = () => {
       <div className={styles.container}>
         <div className={styles.left_section}>
           <div>
-            <ExportedImage  src={Nokatlar} width={175} height={75} />
+            <Image  src={Nokatlar} width={175} height={75} />
           </div>
           <div className={styles.category_list}>
             <VerticalMenu />

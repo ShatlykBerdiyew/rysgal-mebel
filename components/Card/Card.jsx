@@ -3,15 +3,14 @@ import React, { useEffect, useState } from "react";
 import styles from "./card.module.css";
 import likeIcon from "../../public/like.png";
 import redLikedIcon from "../../public/heart.png";
-import  ExportedImage  from  "next-image-export-optimizer" ; 
 
 import { BASE_URL } from "../../store/urls";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import { addCard, deleteCard } from "../../store/actions/card";
 import { addProductinLikes } from "../../store/actions/likedProductsActions";
-import myImageLoader from "../loader/myloader";
-import LocalImageLoader from "../loader/localLoader";
+// import myImageLoader from "../loader/myloader";
+// import LocalImageLoader from "../loader/localLoader";
 
 const Card = ({ prod_id, img_url, title, price, desc, inCart = false }) => {
   const dispatch = useDispatch();
@@ -27,7 +26,7 @@ const Card = ({ prod_id, img_url, title, price, desc, inCart = false }) => {
   return (
     <div className={styles.card}>
       <Image
-        loader={myImageLoader}
+        // loader={myImageLoader}
         className={styles.card__image}
         src={BASE_URL + img_url}
         width={272}
@@ -49,7 +48,7 @@ const Card = ({ prod_id, img_url, title, price, desc, inCart = false }) => {
 
         <div className={styles.card__btn}>
           {liked ? (
-            <ExportedImage
+            <Image
             // loader={LocalImageLoader}
               src={redLikedIcon}
               width={28}
@@ -57,7 +56,7 @@ const Card = ({ prod_id, img_url, title, price, desc, inCart = false }) => {
               objectFit="contain"
             />
           ) : (
-            <ExportedImage
+            <Image
               onClick={() =>
                 dispatch(
                   addProductinLikes({ prod_id, img_url, title, price, desc })
