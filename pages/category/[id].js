@@ -3,22 +3,9 @@ import Card from "../../components/Card/Card";
 import Header from "../../components/header";
 import { BASE_URL } from "../../store/urls";
 
-export async function getStaticPaths() {
-  const brands = await fetch(`${BASE_URL}/api/products/brands/`);
-  const brand_datas = await brands.json();
-  let path = [];
-  brand_datas.length &&
-    brand_datas.data?.map((p) => {
-      path.push(p.id);
-    });
-  return {
-    paths: path,
-    fallback: false,
-  };
-}
 
-export const getStaticProps = async () => {
-  const { id } = params;
+export const getServerSideProps = async (context) => {
+  const { id } = context.params;
 
   console.log(id, typeof id);
   const response = await fetch(
