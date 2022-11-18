@@ -5,10 +5,10 @@ import s from "../styles/media.module.css";
 
 const Media = () => {
   const [loading, setLoading] = useState(false);
-  const [mediaList, setMediaList] = useState();
+  const [mediaList, setMediaList] = useState([]);
 
   useEffect(() => {
-    if (mediaList.length === 0) {
+    if (mediaList && mediaList.length === 0) {
       console.log("media listi almaga bashlady!");
       setLoading(true);
       fetch(BASE_URL + "/api/products/media-list/")
